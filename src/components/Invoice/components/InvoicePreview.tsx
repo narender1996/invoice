@@ -156,7 +156,7 @@ const InvoicePreviewModal = (props: Props) => {
                 </VStack>
               </Box>
             </HStack>
-            <HStack gap={0}>
+            <HStack gap={0} alignItems="stretch">
               <Box
                 p={2}
                 flex={1}
@@ -167,22 +167,22 @@ const InvoicePreviewModal = (props: Props) => {
                   Bill To
                 </Text>
                 <Text fontSize={12} fontWeight={900}>
-                  {invoice.billTo.address}
+                  {invoice.billTo.billname}
                 </Text>
                 <HStack>
                   <Text fontSize={12} fontWeight={900}>
-                    ACCT #
+                    Attn :
                   </Text>
                   <Text fontSize={12} fontWeight={500}>
-                    {invoice.billTo.acct}
+                    {invoice.billTo.attn}
                   </Text>
                 </HStack>
                 <HStack>
                   <Text fontSize={12} fontWeight={900}>
-                    Account Terms
+                    Email :
                   </Text>
                   <Text fontSize={12} fontWeight={500}>
-                    {invoice.billTo.accountTerms}
+                    {invoice.billTo.email}
                   </Text>
                 </HStack>
               </Box>
@@ -196,24 +196,28 @@ const InvoicePreviewModal = (props: Props) => {
                   Ship To
                 </Text>
                 <Text fontSize={12} fontWeight={900}>
-                  {invoice.shipTo.address}
+                  {invoice.shipTo.shipname}
                 </Text>
+                {/* {<HStack> */}
+                {/* <Text fontSize={12} fontWeight={900}>
+                      Attn :
+                    </Text> */}
+                {/* <Text fontSize={12} fontWeight={500}>
+                      ""
+                    </Text> */}
+                {/* </HStack>} */}
                 <HStack>
                   <Text fontSize={12} fontWeight={900}>
-                    Attn :
+                    Address :
                   </Text>
                   <Text fontSize={12} fontWeight={500}>
-                    {invoice.shipTo.attn}
+                    {invoice.shipTo.address}
                   </Text>
                 </HStack>
-                <HStack>
-                  <Text fontSize={12} fontWeight={900}>
-                    Email :
-                  </Text>
-                  <Text fontSize={12} fontWeight={500}>
-                    {invoice.shipTo.email}
-                  </Text>
-                </HStack>
+                <Text >
+                  <Box />
+                </Text>
+                <HStack />
               </Box>
             </HStack>
             <Box>
@@ -233,7 +237,10 @@ const InvoicePreviewModal = (props: Props) => {
                         Item
                       </Th>
                       <Th fontWeight={900} fontSize={12}>
-                        Part Number / Description
+                        Part Number
+                      </Th>
+                      <Th fontWeight={900} fontSize={12}>
+                        Description
                       </Th>
                       <Th fontWeight={900} fontSize={12}>
                         Qty
@@ -257,6 +264,9 @@ const InvoicePreviewModal = (props: Props) => {
                           whiteSpace="break-spaces"
                           fontWeight={700}
                         >
+                          {item.part}
+                        </Td>
+                        <Td fontSize={12} fontWeight={700}>
                           {item.description}
                         </Td>
                         <Td fontSize={12} fontWeight={700}>
@@ -282,7 +292,7 @@ const InvoicePreviewModal = (props: Props) => {
                   </Tbody>
                   <Tfoot>
                     <Tr>
-                      <Td colSpan={4}>
+                      <Td colSpan={5}>
                         <HStack mb={4} justifyContent="space-between">
                           <Text fontSize={12} fontWeight={900}>
                             Terms & Conditions

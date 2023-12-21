@@ -51,15 +51,15 @@ const InvoiceForm = () => {
 
   const handleChange =
     (field: keyof typeof invoice) =>
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setInvoice({
-        ...invoice,
-        [field]: {
-          ...invoice[field],
-          [e.target.name]: e.target.value,
-        },
-      });
-    };
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInvoice({
+          ...invoice,
+          [field]: {
+            ...invoice[field],
+            [e.target.name]: e.target.value,
+          },
+        });
+      };
 
   const handleItemChange =
     (id: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -225,17 +225,17 @@ const InvoiceForm = () => {
             </Heading>
             <Stack spacing={4}>
               <FormControl>
-                <FormLabel>Billing Address</FormLabel>
+                <FormLabel>Company Name</FormLabel>
                 <Input
-                  name="address"
-                  value={invoice.billTo.address}
+                  name="billname"
+                  value={invoice.billTo.billname}
                   onChange={handleChange("billTo")}
                   type="text"
-                  placeholder="Billing Address"
+                  placeholder="Company Name"
                 />
               </FormControl>
               <HStack>
-                <FormControl>
+                {/* <FormControl>
                   <FormLabel>ACCT</FormLabel>
                   <Input
                     name="acct"
@@ -254,6 +254,26 @@ const InvoiceForm = () => {
                     type="text"
                     placeholder="Account terms"
                   />
+                </FormControl> */}
+                <FormControl>
+                  <FormLabel>Attn</FormLabel>
+                  <Input
+                    name="attn"
+                    value={invoice.billTo.attn}
+                    onChange={handleChange("billTo")}
+                    type="text"
+                    placeholder="Attn"
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Email</FormLabel>
+                  <Input
+                    name="email"
+                    value={invoice.billTo.email}
+                    onChange={handleChange("billTo")}
+                    type="text"
+                    placeholder="Email"
+                  />
                 </FormControl>
               </HStack>
             </Stack>
@@ -264,28 +284,28 @@ const InvoiceForm = () => {
             </Heading>
             <Stack spacing={4}>
               <FormControl>
-                <FormLabel>Shipping Address</FormLabel>
+                <FormLabel>Company Name</FormLabel>
                 <Input
-                  name="address"
-                  value={invoice.shipTo.address}
+                  name="shipname"
+                  value={invoice.shipTo.shipname}
                   onChange={handleChange("shipTo")}
                   type="text"
-                  placeholder="Shipping Address"
+                  placeholder="Company Name"
                 />
               </FormControl>
 
               <HStack>
                 <FormControl>
-                  <FormLabel>Attn</FormLabel>
+                  <FormLabel>Address</FormLabel>
                   <Input
-                    name="attn"
-                    value={invoice.shipTo.attn}
+                    name="address"
+                    value={invoice.shipTo.address}
                     onChange={handleChange("shipTo")}
                     type="text"
-                    placeholder="Attn"
+                    placeholder="Address"
                   />
                 </FormControl>
-                <FormControl>
+                {/* <FormControl>
                   <FormLabel>Email</FormLabel>
                   <Input
                     name="email"
@@ -294,7 +314,7 @@ const InvoiceForm = () => {
                     type="text"
                     placeholder="Email"
                   />
-                </FormControl>
+                </FormControl> */}
               </HStack>
             </Stack>
           </Box>
@@ -307,7 +327,17 @@ const InvoiceForm = () => {
             {invoice.items.map((item) => (
               <HStack key={item.id} alignItems="flex-end">
                 <FormControl flex={8}>
-                  <FormLabel>Part Number / Description</FormLabel>
+                  <FormLabel>Part Number</FormLabel>
+                  <Input
+                    type="text"
+                    name="part"
+                    onChange={handleItemChange(item.id)}
+                    value={item.part}
+                    placeholder="Part Number"
+                  />
+                </FormControl>
+                <FormControl flex={8}>
+                  <FormLabel>Description</FormLabel>
                   <Input
                     type="text"
                     name="description"

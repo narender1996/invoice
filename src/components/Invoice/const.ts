@@ -1,4 +1,5 @@
 export const InitialItemState = {
+  part: "",
   description: "",
   quantity: 0,
   unitPrice: 0,
@@ -12,14 +13,13 @@ export const InitialState = {
     paymentTerms: "",
   },
   billTo: {
-    address: "",
-    acct: "",
-    accountTerms: "",
-  },
-  shipTo: {
-    address: "",
+    billname: "",
     attn: "",
     email: "",
+  },
+  shipTo: {
+    shipname: "",
+    address:""
   },
   items: [{ ...InitialItemState, id: Date.now() }],
 };
