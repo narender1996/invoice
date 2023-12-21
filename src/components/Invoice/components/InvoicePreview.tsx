@@ -266,7 +266,7 @@ const InvoicePreviewModal = (props: Props) => {
                         >
                           {item.part}
                         </Td>
-                        <Td fontSize={12} fontWeight={700}>
+                        <Td fontSize={12} fontWeight={700} whiteSpace="break-spaces">
                           {item.description}
                         </Td>
                         <Td fontSize={12} fontWeight={700}>
