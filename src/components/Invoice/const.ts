@@ -14,6 +14,7 @@ export const InitialState = {
   },
   billTo: {
     billname: "",
+    billaddress:"",
     attn: "",
     email: "",
   },

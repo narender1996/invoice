@@ -218,7 +218,7 @@ const InvoiceForm = () => {
             </HStack>
           </Stack>
         </Box>
-        <HStack mt={4}>
+        <HStack mt={4} alignItems="stretch">
           <Box flex={1}>
             <Heading size="lg" mb={4}>
               Bill To
@@ -232,6 +232,16 @@ const InvoiceForm = () => {
                   onChange={handleChange("billTo")}
                   type="text"
                   placeholder="Company Name"
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Address</FormLabel>
+                <Input
+                  name="billaddress"
+                  value={invoice.billTo.billaddress}
+                  onChange={handleChange("billTo")}
+                  type="text"
+                  placeholder="Address"
                 />
               </FormControl>
               <HStack>
@@ -278,11 +288,11 @@ const InvoiceForm = () => {
               </HStack>
             </Stack>
           </Box>
-          <Box flex={1}>
+          <Box flex={1} >
             <Heading size="lg" mb={4}>
               Ship To
             </Heading>
-            <Stack spacing={4}>
+            <Stack spacing={4} alignItems="stretch">
               <FormControl>
                 <FormLabel>Company Name</FormLabel>
                 <Input
@@ -293,7 +303,6 @@ const InvoiceForm = () => {
                   placeholder="Company Name"
                 />
               </FormControl>
-
               <HStack>
                 <FormControl>
                   <FormLabel>Address</FormLabel>
@@ -305,16 +314,6 @@ const InvoiceForm = () => {
                     placeholder="Address"
                   />
                 </FormControl>
-                {/* <FormControl>
-                  <FormLabel>Email</FormLabel>
-                  <Input
-                    name="email"
-                    value={invoice.shipTo.email}
-                    onChange={handleChange("shipTo")}
-                    type="text"
-                    placeholder="Email"
-                  />
-                </FormControl> */}
               </HStack>
             </Stack>
           </Box>

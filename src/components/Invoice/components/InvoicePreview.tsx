@@ -171,6 +171,14 @@ const InvoicePreviewModal = (props: Props) => {
                 </Text>
                 <HStack>
                   <Text fontSize={12} fontWeight={900}>
+                    Address :
+                  </Text>
+                  <Text fontSize={12} fontWeight={500}>
+                    {invoice.billTo.billaddress}
+                  </Text>
+                </HStack>
+                <HStack>
+                  <Text fontSize={12} fontWeight={900}>
                     Attn :
                   </Text>
                   <Text fontSize={12} fontWeight={500}>
