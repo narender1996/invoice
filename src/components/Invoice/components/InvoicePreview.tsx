@@ -169,9 +169,9 @@ const InvoicePreviewModal = (props: Props) => {
                 <Text fontSize={12} fontWeight={900}>
                   {invoice.billTo.billname}
                 </Text>
-                <HStack>
+                <HStack alignItems="stretch">
                   <Text fontSize={12} fontWeight={900}>
-                    Address :
+                    Address:
                   </Text>
                   <Text fontSize={12} fontWeight={500}>
                     {invoice.billTo.billaddress}
@@ -179,7 +179,7 @@ const InvoicePreviewModal = (props: Props) => {
                 </HStack>
                 <HStack>
                   <Text fontSize={12} fontWeight={900}>
-                    Attn :
+                    Attn:
                   </Text>
                   <Text fontSize={12} fontWeight={500}>
                     {invoice.billTo.attn}
@@ -187,7 +187,7 @@ const InvoicePreviewModal = (props: Props) => {
                 </HStack>
                 <HStack>
                   <Text fontSize={12} fontWeight={900}>
-                    Email :
+                    Email:
                   </Text>
                   <Text fontSize={12} fontWeight={500}>
                     {invoice.billTo.email}
@@ -206,17 +206,9 @@ const InvoicePreviewModal = (props: Props) => {
                 <Text fontSize={12} fontWeight={900}>
                   {invoice.shipTo.shipname}
                 </Text>
-                {/* {<HStack> */}
-                {/* <Text fontSize={12} fontWeight={900}>
-                      Attn :
-                    </Text> */}
-                {/* <Text fontSize={12} fontWeight={500}>
-                      ""
-                    </Text> */}
-                {/* </HStack>} */}
-                <HStack>
+                <HStack alignItems="stretch">
                   <Text fontSize={12} fontWeight={900}>
-                    Address :
+                    Address:
                   </Text>
                   <Text fontSize={12} fontWeight={500}>
                     {invoice.shipTo.address}
@@ -290,13 +282,13 @@ const InvoicePreviewModal = (props: Props) => {
                         </Td>
                       </Tr>
                     ))}
-                    <Tr>
+                    {/* <Tr>
                       <Td></Td>
                       <Td></Td>
                       <Td></Td>
                       <Td></Td>
                       <Td></Td>
-                    </Tr>
+                    </Tr> */}
                   </Tbody>
                   <Tfoot>
                     <Tr>
@@ -314,7 +306,7 @@ const InvoicePreviewModal = (props: Props) => {
                             <HStack
                               fontWeight={500}
                               gap={2}
-                              fontSize={10}
+                              fontSize={8}
                               color="black"
                               key={index}
                               whiteSpace="break-spaces"

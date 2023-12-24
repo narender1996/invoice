@@ -29,7 +29,7 @@ export const TermsAndConditions = [
   "Stock items are always subject to prior sales.",
   "Orders are subject to a minimum value of $250.00.",
   "Unless otherwise specified, all goods are supplied EX-Works.",
-  "Quoted prices are based on the quantities we have offered. If you reduce or increase the quantities, prices may be subject to change.",
+  `Quoted prices are based on the quantities we have offered. If you reduce or increase the quantities, prices may be subject to change.`,
   "Quoted prices are for routine services. AOG (Aircraft on Ground) priority services will incur additional charges.",
   "For stock items, we require 1-2 days for packaging and documentation.",
   "Dangerous goods packaging and documentation charges are extra.",
