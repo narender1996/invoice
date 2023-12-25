@@ -13,6 +13,7 @@ import { useState } from "react";
 import { InitialItemState, InitialState } from "./const";
 import { Invoice } from "./typings";
 import InvoicePreviewModal from "./components/InvoicePreview";
+import { Link } from "react-router-dom";
 
 const InvoiceForm = () => {
   const [invoice, setInvoice] = useState<Invoice>(InitialState);
@@ -51,15 +52,15 @@ const InvoiceForm = () => {
 
   const handleChange =
     (field: keyof typeof invoice) =>
-      (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInvoice({
-          ...invoice,
-          [field]: {
-            ...invoice[field],
-            [e.target.name]: e.target.value,
-          },
-        });
-      };
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setInvoice({
+        ...invoice,
+        [field]: {
+          ...invoice[field],
+          [e.target.name]: e.target.value,
+        },
+      });
+    };
 
   const handleItemChange =
     (id: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -150,19 +151,21 @@ const InvoiceForm = () => {
         border="1px solid grey"
         mx="auto"
       >
-        <HStack position={"relative"} justifyContent="right">
-          <Heading
-            position="absolute"
-            left="50%"
-            transform={"translateX(-50%)"}
-            size="xl"
-            textAlign="center"
-            mb={4}
+        <HStack alignItems="center" justifyContent="space-between">
+          <Button
+            colorScheme="blue"
+            variant="outline"
+            width="150px"
+            as={Link}
+            to="/"
           >
+            Back
+          </Button>
+          <Heading size="xl" textAlign="center">
             Invoice Form
           </Heading>
 
-          <Button onClick={seePreview} colorScheme="blue">
+          <Button width="150px" onClick={seePreview} colorScheme="blue">
             Preview Invoice
           </Button>
         </HStack>
@@ -288,7 +291,7 @@ const InvoiceForm = () => {
               </HStack>
             </Stack>
           </Box>
-          <Box flex={1} >
+          <Box flex={1}>
             <Heading size="lg" mb={4}>
               Ship To
             </Heading>
