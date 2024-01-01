@@ -21,6 +21,9 @@ const Home = () => {
       <Button colorScheme="blue" as={Link} to={"/generate-coc"} width="240px">
         Generate COC
       </Button>
+      <Button colorScheme="blue" as={Link} to={"/purchase-order"} width="240px">
+        Generate Purchase Order
+      </Button>
     </Center>
   );
 };
