@@ -36,11 +36,12 @@ const InvoicePreviewModal = (props: Props) => {
   const { invoice, isOpen, onClose } = props;
   const [fileName, setFileName] = useState("");
 
-  const formatDate = (date: string) => {
-    const d = new Date(date);
-    const day = d.getDate() < 10 ? `0${d.getDate()}` : d.getDate();
-    const month = d.getMonth() < 10 ? `0${d.getMonth()}` : d.getMonth();
-    return `${day}/${month}/${d.getFullYear()}`;
+  const formatDate = (inputDate: string) => {
+    const dateObject = new Date(inputDate);
+    const year = dateObject.getFullYear();
+    const month = String(dateObject.getMonth() + 1).padStart(2, '0');
+    const day = String(dateObject.getDate()).padStart(2, '0');
+    return `${day}/${month}/${year}`;
   };
 
   const getTotal = () => {
@@ -269,13 +270,13 @@ const InvoicePreviewModal = (props: Props) => {
                         <Td fontSize={12} fontWeight={700} whiteSpace="break-spaces">
                           {item.description}
                         </Td>
-                        <Td fontSize={12} fontWeight={700}>
+                        <Td fontSize={12} fontWeight={700} textAlign="end">
                           {item.quantity}
                         </Td>
-                        <Td fontSize={12} fontWeight={700}>
+                        <Td fontSize={12} fontWeight={700} textAlign="end">
                           {item.unitPrice.toFixed(2)}
                         </Td>
-                        <Td fontSize={12} fontWeight={700}>
+                        <Td fontSize={12} fontWeight={700} textAlign="end">
                           {(
                             Number(item.quantity) * Number(item.unitPrice)
                           ).toFixed(2)}
@@ -324,7 +325,7 @@ const InvoicePreviewModal = (props: Props) => {
                         border="none !important"
                         fontWeight={900}
                         display="flex"
-                        alignItems="flex-start"
+                        textAlign="end"
                         fontSize={12}
                       >
                         {getTotal()}
