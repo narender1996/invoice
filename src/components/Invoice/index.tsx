@@ -52,15 +52,15 @@ const InvoiceForm = () => {
 
   const handleChange =
     (field: keyof typeof invoice) =>
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setInvoice({
-        ...invoice,
-        [field]: {
-          ...invoice[field],
-          [e.target.name]: e.target.value,
-        },
-      });
-    };
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInvoice({
+          ...invoice,
+          [field]: {
+            ...invoice[field],
+            [e.target.name]: e.target.value,
+          },
+        });
+      };
 
   const handleItemChange =
     (id: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -132,6 +132,8 @@ const InvoiceForm = () => {
 
     setIsOpen(true);
   };
+
+
 
   return (
     <>
