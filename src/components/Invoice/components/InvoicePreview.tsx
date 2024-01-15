@@ -57,6 +57,7 @@ const InvoicePreviewModal = (props: Props) => {
     html2pdf(element, {
       margin: [10, 0, 10, 0],
       filename: fileName || "invoice.pdf",
+      // pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
     });
   };
 

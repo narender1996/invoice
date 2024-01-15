@@ -52,12 +52,25 @@ const PurchaseOrderForm = () => {
     });
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPurchaseOrder({
-      ...purchaseOrder,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const handleChange =
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setPurchaseOrder({
+        ...purchaseOrder,
+          [e.target.name]: e.target.value,
+      });
+    };
+
+    const handleNestedchanges=
+      (field:"supplier" | "shipTo") =>
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPurchaseOrder({
+          ...purchaseOrder,
+          [field]: {
+            ...purchaseOrder[field],
+            [e.target.name]: e.target.value,
+          },
+        });
+    }
 
   const handleItemChange =
     (id: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,8 +95,12 @@ const PurchaseOrderForm = () => {
     const errorFields: string[] = [];
 
     Object.entries(purchaseOrder).forEach(([key, value]) => {
-      if (key !== "items" && !value) {
-        errorFields.push(key);
+      if (key !== "items") {
+        Object.entries(value).forEach(([key, value]) => {
+          if (!value) {
+            errorFields.push(key);
+          }
+        });
       }
     });
 
@@ -191,22 +208,22 @@ const PurchaseOrderForm = () => {
             </HStack>
           </Stack>
         </Box>
-        <HStack mt={4} alignItems="stretch">
-          <Box flex={1}>
-            <Heading size="lg" mb={4}>
-              Supplier
-            </Heading>
-            <FormControl>
-              <Input
-                value={purchaseOrder.supplier}
-                onChange={handleChange}
-                name="supplier"
-                type="text"
-                placeholder="Supplier"
-              />
-            </FormControl>
-          </Box>
-        </HStack>
+          {/* <HStack mt={4} alignItems="stretch">
+            <Box flex={1}>
+              <Heading size="lg" mb={4}>
+                Supplier
+              </Heading>
+              <FormControl>
+                <Input
+                  value={purchaseOrder.supplier}
+                  onChange={handleChange}
+                  name="supplier"
+                  type="text"
+                  placeholder="Supplier"
+                />
+              </FormControl>
+            </Box>
+          </HStack>
         <HStack mt={4} alignItems="stretch">
           <Box flex={1}>
             <Heading size="lg" mb={4}>
@@ -221,6 +238,86 @@ const PurchaseOrderForm = () => {
                 placeholder="Ship to"
               />
             </FormControl>
+          </Box>
+        </HStack> */}
+         <HStack mt={4} alignItems="stretch">
+          <Box flex={1}>
+            <Heading size="lg" mb={4}>
+              Supplier
+            </Heading>
+            <Stack spacing={4}>
+              <FormControl>
+                <FormLabel>Company Name</FormLabel>
+                <Input
+                  name="suppliername"
+                  value={purchaseOrder.supplier.suppliername}
+                  onChange={handleNestedchanges("supplier")}
+                  type="text"
+                  placeholder="Company Name"
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Address</FormLabel>
+                <Input
+                  name="supplieraddress"
+                  value={purchaseOrder.supplier.supplieraddress}
+                  onChange={handleNestedchanges("supplier")}
+                  type="text"
+                  placeholder="Address"
+                />
+              </FormControl>
+              <HStack>
+                <FormControl>
+                  <FormLabel>Attn</FormLabel>
+                  <Input
+                    name="attn"
+                    value={purchaseOrder.supplier.attn}
+                    onChange={handleNestedchanges("supplier")}
+                    type="text"
+                    placeholder="Attn"
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Email</FormLabel>
+                  <Input
+                    name="email"
+                    value={purchaseOrder.supplier.email}
+                    onChange={handleNestedchanges("supplier")}
+                    type="text"
+                    placeholder="Email"
+                  />
+                </FormControl>
+              </HStack>
+            </Stack>
+          </Box>
+          <Box flex={1}>
+            <Heading size="lg" mb={4}>
+              Ship To
+            </Heading>
+            <Stack spacing={4} alignItems="stretch">
+              <FormControl>
+                <FormLabel>Company Name</FormLabel>
+                <Input
+                  name="shipname"
+                  value={purchaseOrder.shipTo.shipname}
+                  onChange={handleNestedchanges("shipTo")}
+                  type="text"
+                  placeholder="Company Name"
+                />
+              </FormControl>
+              <HStack>
+                <FormControl>
+                  <FormLabel>Address</FormLabel>
+                  <Input
+                    name="address"
+                    value={purchaseOrder.shipTo.address}
+                    onChange={handleNestedchanges("shipTo")}
+                    type="text"
+                    placeholder="Address"
+                  />
+                </FormControl>
+              </HStack>
+            </Stack>
           </Box>
         </HStack>
         <HStack mt={4} alignItems="stretch">

@@ -8,8 +8,16 @@ export const InitialItemState = {
 export const InitialPurchaseOrderState = {
   date: "",
   purchaseOrder: "",
-  supplier: "",
-  shipTo: "",
+  supplier: {
+    suppliername: "",
+    supplieraddress:"",
+    attn: "",
+    email: "",
+  },
+  shipTo: {
+    shipname: "",
+    address:""
+  },
   shippingMethod: "",
   destination: "",
   contactPerson: "",

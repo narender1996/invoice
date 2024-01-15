@@ -26,11 +26,12 @@ const COCPreviewModal = (props: Props) => {
   const { coc, isOpen, onClose } = props;
   const [fileName, setFileName] = useState("");
 
-  const formatDate = (date: string) => {
-    const d = new Date(date);
-    const day = d.getDate() < 10 ? `0${d.getDate()}` : d.getDate();
-    const month = d.getMonth() < 10 ? `0${d.getMonth()}` : d.getMonth();
-    return `${day}/${month}/${d.getFullYear()}`;
+  const formatDate = (inputDate: string) => {
+    const dateObject = new Date(inputDate);
+    const year = dateObject.getFullYear();
+    const month = String(dateObject.getMonth() + 1).padStart(2, '0');
+    const day = String(dateObject.getDate()).padStart(2, '0');
+    return `${day}/${month}/${year}`;
   };
 
   const exportPDF = () => {
@@ -38,6 +39,7 @@ const COCPreviewModal = (props: Props) => {
     html2pdf(element, {
       margin: [10, 0, 10, 0],
       filename: fileName || "coc.pdf",
+      // pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
     });
   };
 
@@ -182,16 +184,16 @@ const COCPreviewModal = (props: Props) => {
                   <Text borderRight={"2px solid grey"} flex={1}>
                     {item.qty}
                   </Text>
-                  <Text borderRight={"2px solid grey"} flex={10}>
+                  <Text borderRight={"2px solid grey"} flex={10} >
                     {item.description}
                   </Text>
-                  <Text borderRight={"2px solid grey"} flex={2}>
+                  <Text borderRight={"2px solid grey"} flex={2} textAlign="center">
                     {item.lotNumber}
                   </Text>
-                  <Text borderRight={"2px solid grey"} flex={2}>
+                  <Text borderRight={"2px solid grey"} flex={2} textAlign="center">
                     {item.shelfLife}
                   </Text>
-                  <Text flex={2}>{item.origin}</Text>
+                  <Text flex={2} textAlign="center">{item.origin}</Text>
                 </HStack>
               ))}
             </Stack>
@@ -202,9 +204,13 @@ const COCPreviewModal = (props: Props) => {
               certificates or release notes quoted and are in the same condition
               as when received and are further issued for your inspection.
             </Text>
+            <Box style={{display:"flex"}} mt={2} mb={2}>
+               <Image  width="10%" ml="1%" src="/icon2.jpeg" />
+              <Image  width="10%" ml="5%" src="/icon1.jpeg" />
 
+               </Box>
             <Stack>
-              <Text px={4} fontSize={10} fontWeight={700} mt={8}>
+              <Text px={4} fontSize={10} fontWeight={700} >
                 Signed on Behalf of Partium, Elite B.V.: Quality Control
               </Text>
               {/* TODO: Implement Image here */}

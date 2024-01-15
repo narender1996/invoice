@@ -25,15 +25,19 @@ interface Props {
   onClose: () => void;
 }
 
+
 const PurchaseOrderPreviewModal = (props: Props) => {
+console.log(props.purchaseOrder,"asdasdas")
+
   const { purchaseOrder, isOpen, onClose } = props;
   const [fileName, setFileName] = useState("");
 
-  const formatDate = (date: string) => {
-    const d = new Date(date);
-    const day = d.getDate() < 10 ? `0${d.getDate()}` : d.getDate();
-    const month = d.getMonth() < 10 ? `0${d.getMonth()}` : d.getMonth();
-    return `${day}/${month}/${d.getFullYear()}`;
+  const formatDate = (inputDate: string) => {
+    const dateObject = new Date(inputDate);
+    const year = dateObject.getFullYear();
+    const month = String(dateObject.getMonth() + 1).padStart(2, '0');
+    const day = String(dateObject.getDate()).padStart(2, '0');
+    return `${day}/${month}/${year}`;
   };
 
   const exportPDF = () => {
@@ -41,6 +45,7 @@ const PurchaseOrderPreviewModal = (props: Props) => {
     html2pdf(element, {
       margin: [10, 0, 10, 0],
       filename: fileName || "purchase-order.pdf",
+      // pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
     });
   };
 
@@ -78,19 +83,21 @@ const PurchaseOrderPreviewModal = (props: Props) => {
           >
             <HStack p={2} alignItems="flex-start">
               <Stack flex={1}>
-                <Image ml="1%" width="55%" src="/icon.png" />
+                <Image ml="1%" width="85%" src="/icon.png" />
                 <Box>
-                  <Text>
+                  <Text fontWeight={500}  fontSize={11}>
                     Daalmeerstraat 24, (2131 HC) Hooddorp The Netherlands
                   </Text>
-                  <Text>
+                  <Text fontWeight={500} fontSize={11}>
                     Email:{" "}
-                    <Text fontWeight={700} color="orange" as={"span"}>
+                    <Text fontWeight={500}  as={"span"} fontSize={11}>
                       sales@partimelite.com
                     </Text>
                   </Text>
-                  <Text>Phone: +31 (0) 85-301 685</Text>
-                  <Text>CoC: 81729618</Text>
+                  <Box style={{display:"flex", justifyContent:"space-between"}} width="80%">
+                  <Text fontWeight={500} fontSize={11}>Phone: +31 (0) 85-301 685</Text>
+                  <Text fontWeight={500} fontSize={11}>CoC: 81729618</Text>
+                  </Box>
                 </Box>
               </Stack>
               <Stack height="100%" flex={1}>
@@ -98,7 +105,6 @@ const PurchaseOrderPreviewModal = (props: Props) => {
                   textAlign="center"
                   fontSize={28}
                   fontWeight={700}
-                  color="navy"
                 >
                   PURCHASE ORDER
                 </Text>
@@ -123,8 +129,74 @@ const PurchaseOrderPreviewModal = (props: Props) => {
               </Stack>
             </HStack>
 
+            
+
             <Box m={2} border="2px solid grey">
-              <HStack
+            <HStack gap={0} alignItems="stretch">
+              <Box
+                p={2}
+                flex={1}
+                borderRight="1px solid grey"
+                borderBottom="2px solid grey"
+              >
+                <Text mb={2} fontWeight={900} fontSize={14}>
+                Supplier
+                </Text>
+                <Text fontSize={12} fontWeight={900}>
+                  {purchaseOrder.supplier.suppliername}
+                </Text>
+                <HStack alignItems="stretch">
+                  <Text fontSize={12} fontWeight={900}>
+                    Address:
+                  </Text>
+                  <Text fontSize={12} fontWeight={500}>
+                    {purchaseOrder.supplier.supplieraddress}
+                  </Text>
+                </HStack>
+                <HStack>
+                  <Text fontSize={12} fontWeight={900}>
+                    Attn:
+                  </Text>
+                  <Text fontSize={12} fontWeight={500}>
+                    {purchaseOrder.supplier.attn}
+                  </Text>
+                </HStack>
+                <HStack>
+                  <Text fontSize={12} fontWeight={900}>
+                    Email:
+                  </Text>
+                  <Text fontSize={12} fontWeight={500}>
+                    {purchaseOrder.supplier.email}
+                  </Text>
+                </HStack>
+              </Box>
+              <Box
+                p={2}
+                flex={1}
+                borderBottom="2px solid grey"
+                borderLeft="1px solid grey"
+              >
+                <Text fontSize={14} mb={2} fontWeight={900}>
+                  Ship To
+                </Text>
+                <Text fontSize={12} fontWeight={900}>
+                  {purchaseOrder.shipTo.shipname}
+                </Text>
+                <HStack alignItems="stretch">
+                  <Text fontSize={12} fontWeight={900}>
+                    Address:
+                  </Text>
+                  <Text fontSize={12} fontWeight={500}>
+                    {purchaseOrder.shipTo.address}
+                  </Text>
+                </HStack>
+                <Text >
+                  <Box />
+                </Text>
+                <HStack />
+              </Box>
+            </HStack>
+               {/* {/* <HStack
                 alignItems="stretch"
                 borderBottom="2px solid grey"
                 gap={0}
@@ -145,8 +217,8 @@ const PurchaseOrderPreviewModal = (props: Props) => {
                 >
                   Ship To
                 </Text>
-              </HStack>
-              <HStack
+              </HStack> 
+              {/* <HStack
                 borderBottom="2px solid grey"
                 minH={"80px"}
                 alignItems="stretch"
@@ -154,21 +226,21 @@ const PurchaseOrderPreviewModal = (props: Props) => {
               >
                 <Text
                   p={1}
-                  fontWeight={700}
+                  fontWeight={500}
                   borderRight="1px solid grey"
                   flex={1}
                 >
-                  {purchaseOrder.supplier}
+                 {purchaseOrder.supplier}
                 </Text>
                 <Text
                   p={1}
-                  fontWeight={700}
+                  fontWeight={500}
                   borderLeft="1px solid grey"
                   flex={1}
                 >
-                  {purchaseOrder.shipTo}
+                   {purchaseOrder.shipTo} 
                 </Text>
-              </HStack>
+              </HStack> */}
               <HStack
                 borderBottom="2px solid grey"
                 alignItems="stretch"
@@ -179,15 +251,15 @@ const PurchaseOrderPreviewModal = (props: Props) => {
                   <Text borderBottom={"2px solid grey"} p={1} fontWeight={700}>
                     Shipping Method
                   </Text>
-                  <Text p={1} fontWeight={700}>
+                  <Text p={1} fontWeight={500}>
                     {purchaseOrder.shippingMethod}
                   </Text>
                 </Stack>
-                <Stack flex={1} borderRight="2px solid grey">
+                <Stack flex={2} borderRight="2px solid grey">
                   <Text borderBottom={"2px solid grey"} p={1} fontWeight={700}>
                     Ultimate Destination
                   </Text>
-                  <Text p={1} fontWeight={700}>
+                  <Text p={1} fontWeight={500}>
                     {purchaseOrder.destination}
                   </Text>
                 </Stack>
@@ -195,7 +267,7 @@ const PurchaseOrderPreviewModal = (props: Props) => {
                   <Text borderBottom={"2px solid grey"} p={1} fontWeight={700}>
                     Contact Person & Email
                   </Text>
-                  <Stack p={1} fontWeight={700}>
+                  <Stack p={1} fontWeight={500}>
                     <Text>{purchaseOrder.contactPerson}</Text>
                     <Text>{purchaseOrder.contactEmail}</Text>
                   </Stack>
@@ -213,8 +285,11 @@ const PurchaseOrderPreviewModal = (props: Props) => {
                   <Text borderRight={"2px solid grey"} flex={1}>
                     Item
                   </Text>
+                  <Text borderRight={"2px solid grey"} flex={1}>
+                    Part Name 
+                  </Text>
                   <Text borderRight={"2px solid grey"} flex={3}>
-                    Part Name & Description
+                     Description
                   </Text>
                   <Text borderRight={"2px solid grey"} flex={1}>
                     Qty
@@ -235,13 +310,14 @@ const PurchaseOrderPreviewModal = (props: Props) => {
                       {idx + 1}
                     </Text>
                     <Text
-                      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                      // @ts-expect-error
-                      textAlign={"left !important"}
+                      textAlign={"end"}
                       borderRight={"2px solid grey"}
-                      flex={3}
+                      flex={1}
                     >
-                      [ {item.part} ]&nbsp;{item.description}
+                       {item.part} 
+                    </Text>
+                    <Text borderRight={"2px solid grey"} flex={3}>
+                    {item.description}
                     </Text>
                     <Text borderRight={"2px solid grey"} flex={1}>
                       {item.quantity}
@@ -255,16 +331,16 @@ const PurchaseOrderPreviewModal = (props: Props) => {
                   </HStack>
                 ))}
               </Box>
-            </Box>
+            </Box> 
             <Stack mx={6} fontSize={12} mt={16}>
               <Text fontWeight={700}>Special Instructions:</Text>
               <List fontWeight={500}>
-                <ListItem mb={2}>
+                <ListItem mb={2} fontSize={8} fontWeight={500}>
                   • Send us a pickup notification via email, which should
                   include the weight, dimensions, pickup location, the contact
                   person's name and documents (Invoice / CoC & Packing List)
                 </ListItem>
-                <ListItem mb={2}>
+                <ListItem mb={2} fontSize={8} fontWeight={500}>
                   • For shelf life items, the pickup notification should include
                   all necessary documents, such as Dangerous Goods Declaration
                   (DGD), Material Safety Data Sheet (MSDS), Manufacturer's
@@ -272,14 +348,14 @@ const PurchaseOrderPreviewModal = (props: Props) => {
                   Analysis (COA), and Supplier's Invoice/Packing List &
                   Certificate of Conformance (COC).
                 </ListItem>
-                <ListItem mb={2}>
+                <ListItem mb={2} fontSize={8} fontWeight={500}>
                   • For rotable items, include all necessary documents, such as
                   Removal Tag, previous operator NIS, Bill of Sale from the
                   previous operator, Shop teardown report, Shop ARC, Shop
                   warranty details, and Supplier's Invoice/Packing List &
                   Material Certificate (COC).
                 </ListItem>
-                <ListItem mb={2}>
+                <ListItem mb={2} fontSize={8} fontWeight={500}>
                   • Ensure that the shipment is well packed for air movement in
                   accordance with international standards.
                 </ListItem>

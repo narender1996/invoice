@@ -250,26 +250,6 @@ const InvoiceForm = () => {
                 />
               </FormControl>
               <HStack>
-                {/* <FormControl>
-                  <FormLabel>ACCT</FormLabel>
-                  <Input
-                    name="acct"
-                    value={invoice.billTo.acct}
-                    onChange={handleChange("billTo")}
-                    type="text"
-                    placeholder="ACCT"
-                  />
-                </FormControl>
-                <FormControl>
-                  <FormLabel>Account terms</FormLabel>
-                  <Input
-                    name="accountTerms"
-                    value={invoice.billTo.accountTerms}
-                    onChange={handleChange("billTo")}
-                    type="text"
-                    placeholder="Account terms"
-                  />
-                </FormControl> */}
                 <FormControl>
                   <FormLabel>Attn</FormLabel>
                   <Input
