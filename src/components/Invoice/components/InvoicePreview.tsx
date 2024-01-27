@@ -91,6 +91,7 @@ const InvoicePreviewModal = (props: Props) => {
             width={"768px"}
             id="invoice-pdf"
             border="2px solid grey"
+            overflowX="hidden"
           >
             <HStack alignItems="flex-start" borderBottom="2px solid grey">
               <HStack
@@ -241,7 +242,7 @@ const InvoicePreviewModal = (props: Props) => {
                       <Th fontWeight={900} fontSize={12}>
                         Part Number
                       </Th>
-                      <Th fontWeight={900} fontSize={12}>
+                      <Th fontWeight={900} fontSize={12} flex={1} >
                         Description
                       </Th>
                       <Th fontWeight={900} fontSize={12}>
@@ -253,7 +254,7 @@ const InvoicePreviewModal = (props: Props) => {
                       <Th fontWeight={900} fontSize={12}>
                         Total ($)
                       </Th>
-                    </Tr>
+                    </Tr> 
                   </Thead>
                   <Tbody>
                     {invoice.items.map((item, index) => (
@@ -268,7 +269,7 @@ const InvoicePreviewModal = (props: Props) => {
                         >
                           {item.part}
                         </Td>
-                        <Td fontSize={12} fontWeight={700} whiteSpace="break-spaces">
+                        <Td fontSize={12} fontWeight={700} whiteSpace="break-spaces" >
                           {item.description}
                         </Td>
                         <Td fontSize={12} fontWeight={700} textAlign="end">
