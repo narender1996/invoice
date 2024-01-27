@@ -17,6 +17,7 @@
 }
 
 table tr {
+  /* border-bottom: 2px solid grey !important; */
   border-top: 2px solid grey !important;
 }
 
