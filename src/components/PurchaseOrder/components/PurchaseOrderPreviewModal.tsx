@@ -40,6 +40,14 @@ console.log(props.purchaseOrder,"asdasdas")
     return `${day}/${month}/${year}`;
   };
 
+  const getTotal = () => {
+    return purchaseOrder.items
+      .reduce((acc, item) => {
+        return acc + Number(item.quantity) * Number(item.unitPrice);
+      }, 0)
+      .toFixed(2);
+  };
+
   const exportPDF = () => {
     const element = document.getElementById("purchase-order-pdf");
     html2pdf(element, {
@@ -249,20 +257,21 @@ console.log(props.purchaseOrder,"asdasdas")
               >
                 <Stack flex={1} borderRight="2px solid grey">
                   <Text borderBottom={"2px solid grey"} p={1} fontWeight={700}>
-                    Shipping Method
-                  </Text>
-                  <Text p={1} fontWeight={500}>
-                    {purchaseOrder.shippingMethod}
-                  </Text>
-                </Stack>
-                <Stack flex={2} borderRight="2px solid grey">
-                  <Text borderBottom={"2px solid grey"} p={1} fontWeight={700}>
                     Ultimate Destination
                   </Text>
                   <Text p={1} fontWeight={500}>
                     {purchaseOrder.destination}
                   </Text>
                 </Stack>
+                <Stack flex={1} borderRight="2px solid grey">
+                  <Text borderBottom={"2px solid grey"} p={1} fontWeight={700}>
+                    Shipping Method
+                  </Text>
+                  <Text p={1} fontWeight={500}>
+                    {purchaseOrder.shippingMethod}
+                  </Text>
+                </Stack>
+                
                 <Stack flex={1}>
                   <Text borderBottom={"2px solid grey"} p={1} fontWeight={700}>
                     Contact Person & Email
@@ -286,7 +295,7 @@ console.log(props.purchaseOrder,"asdasdas")
                     Item
                   </Text>
                   <Text borderRight={"2px solid grey"} flex={1}>
-                    Part Name 
+                    Part Number 
                   </Text>
                   <Text borderRight={"2px solid grey"} flex={3}>
                      Description
@@ -297,7 +306,7 @@ console.log(props.purchaseOrder,"asdasdas")
                   <Text borderRight={"2px solid grey"} flex={1}>
                     Unit Price
                   </Text>
-                  <Text flex={1}>Total</Text>
+                  <Text flex={1}>Total Amount</Text>
                 </HStack>
                 {purchaseOrder.items.map((item, idx) => (
                   <HStack
@@ -326,21 +335,43 @@ console.log(props.purchaseOrder,"asdasdas")
                       {item.unitPrice}
                     </Text>
                     <Text flex={1}>
-                      {Number(item.unitPrice) * Number(item.quantity)}
+                      {(Number(item.unitPrice) * Number(item.quantity)).toFixed(2)}
                     </Text>
                   </HStack>
                 ))}
+                
+                  <Box
+                css={{
+                  "& p": {
+                    textAlign: "end",
+                    paddingBottom: "8px",
+                  },
+                }}
+              >
+                  <HStack
+                    alignItems="stretch"
+                    borderTop="2px solid grey"
+                    px={1}
+                    fontWeight={700}
+                  >
+                  <Text flex={7.5}  borderRight={"2px solid grey"}>Total Amount (USD)</Text>
+                  <Text flex={1}  >{getTotal()} </Text>
+
+                  </HStack>
+                  
+              </Box>
+                 
               </Box>
             </Box> 
             <Stack mx={6} fontSize={12} mt={16}>
               <Text fontWeight={700}>Special Instructions:</Text>
               <List fontWeight={500}>
-                <ListItem mb={2} fontSize={8} fontWeight={500}>
+                <ListItem mb={2} fontSize={10} fontWeight={500}>
                   • Send us a pickup notification via email, which should
                   include the weight, dimensions, pickup location, the contact
                   person's name and documents (Invoice / CoC & Packing List)
                 </ListItem>
-                <ListItem mb={2} fontSize={8} fontWeight={500}>
+                <ListItem mb={2} fontSize={10} fontWeight={500}>
                   • For shelf life items, the pickup notification should include
                   all necessary documents, such as Dangerous Goods Declaration
                   (DGD), Material Safety Data Sheet (MSDS), Manufacturer's
@@ -348,14 +379,14 @@ console.log(props.purchaseOrder,"asdasdas")
                   Analysis (COA), and Supplier's Invoice/Packing List &
                   Certificate of Conformance (COC).
                 </ListItem>
-                <ListItem mb={2} fontSize={8} fontWeight={500}>
+                <ListItem mb={2} fontSize={10} fontWeight={500}>
                   • For rotable items, include all necessary documents, such as
                   Removal Tag, previous operator NIS, Bill of Sale from the
                   previous operator, Shop teardown report, Shop ARC, Shop
                   warranty details, and Supplier's Invoice/Packing List &
                   Material Certificate (COC).
                 </ListItem>
-                <ListItem mb={2} fontSize={8} fontWeight={500}>
+                <ListItem mb={2} fontSize={10} fontWeight={500}>
                   • Ensure that the shipment is well packed for air movement in
                   accordance with international standards.
                 </ListItem>
