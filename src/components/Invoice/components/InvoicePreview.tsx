@@ -91,6 +91,7 @@ const InvoicePreviewModal = (props: Props) => {
             width={"768px"}
             id="invoice-pdf"
             // border="2px solid grey"
+            overflowX="hidden"
           >
             <HStack alignItems="flex-start" border="2px solid grey">
               <HStack
@@ -250,7 +251,7 @@ const InvoicePreviewModal = (props: Props) => {
                       <Th fontWeight={900} fontSize={12}>
                         Part Number
                       </Th>
-                      <Th fontWeight={900} fontSize={12}>
+                      <Th fontWeight={900} fontSize={12} flex={1}>
                         Description
                       </Th>
                       <Th fontWeight={900} fontSize={12}>
