@@ -14,13 +14,13 @@ export const InitialState = {
   },
   billTo: {
     billname: "",
-    billaddress:"",
+    billaddress: "",
     attn: "",
     email: "",
   },
   shipTo: {
     shipname: "",
-    address:""
+    address: "",
   },
   items: [{ ...InitialItemState, id: Date.now() }],
 };

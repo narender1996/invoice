@@ -14,6 +14,14 @@ import {
   List,
   ListItem,
   Center,
+  TableContainer,
+  Table,
+  Thead,
+  Tr,
+  Th,
+  Tbody,
+  Td,
+  Tfoot,
 } from "@chakra-ui/react";
 import html2pdf from "html2pdf.js";
 import { useState } from "react";
@@ -25,9 +33,8 @@ interface Props {
   onClose: () => void;
 }
 
-
 const PurchaseOrderPreviewModal = (props: Props) => {
-console.log(props.purchaseOrder,"asdasdas")
+  console.log(props.purchaseOrder, "asdasdas");
 
   const { purchaseOrder, isOpen, onClose } = props;
   const [fileName, setFileName] = useState("");
@@ -35,8 +42,8 @@ console.log(props.purchaseOrder,"asdasdas")
   const formatDate = (inputDate: string) => {
     const dateObject = new Date(inputDate);
     const year = dateObject.getFullYear();
-    const month = String(dateObject.getMonth() + 1).padStart(2, '0');
-    const day = String(dateObject.getDate()).padStart(2, '0');
+    const month = String(dateObject.getMonth() + 1).padStart(2, "0");
+    const day = String(dateObject.getDate()).padStart(2, "0");
     return `${day}/${month}/${year}`;
   };
 
@@ -53,7 +60,7 @@ console.log(props.purchaseOrder,"asdasdas")
     html2pdf(element, {
       margin: [10, 0, 10, 0],
       filename: fileName || "purchase-order.pdf",
-      // pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+      pagebreak: { mode: ["avoid-all", "css", "legacy"] },
     });
   };
 
@@ -93,27 +100,30 @@ console.log(props.purchaseOrder,"asdasdas")
               <Stack flex={1}>
                 <Image ml="1%" width="85%" src="/icon.png" />
                 <Box>
-                  <Text fontWeight={500}  fontSize={11}>
+                  <Text fontWeight={500} fontSize={11}>
                     Daalmeerstraat 24, (2131 HC) Hooddorp The Netherlands
                   </Text>
                   <Text fontWeight={500} fontSize={11}>
                     Email:{" "}
-                    <Text fontWeight={500}  as={"span"} fontSize={11}>
+                    <Text fontWeight={500} as={"span"} fontSize={11}>
                       sales@partimelite.com
                     </Text>
                   </Text>
-                  <Box style={{display:"flex", justifyContent:"space-between"}} width="80%">
-                  <Text fontWeight={500} fontSize={11}>Phone: +31 (0) 85-301 685</Text>
-                  <Text fontWeight={500} fontSize={11}>CoC: 81729618</Text>
+                  <Box
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                    width="80%"
+                  >
+                    <Text fontWeight={500} fontSize={11}>
+                      Phone: +31 (0) 85-301 685
+                    </Text>
+                    <Text fontWeight={500} fontSize={11}>
+                      CoC: 81729618
+                    </Text>
                   </Box>
                 </Box>
               </Stack>
               <Stack height="100%" flex={1}>
-                <Text
-                  textAlign="center"
-                  fontSize={28}
-                  fontWeight={700}
-                >
+                <Text textAlign="center" fontSize={28} fontWeight={700}>
                   PURCHASE ORDER
                 </Text>
                 <Stack
@@ -137,120 +147,74 @@ console.log(props.purchaseOrder,"asdasdas")
               </Stack>
             </HStack>
 
-            
-
-            <Box m={2} border="2px solid grey">
-            <HStack gap={0} alignItems="stretch">
-              <Box
-                p={2}
-                flex={1}
-                borderRight="1px solid grey"
-                borderBottom="2px solid grey"
-              >
-                <Text mb={2} fontWeight={900} fontSize={14}>
-                Supplier
-                </Text>
-                <Text fontSize={12} fontWeight={900}>
-                  {purchaseOrder.supplier.suppliername}
-                </Text>
-                <HStack alignItems="stretch">
-                  <Text fontSize={12} fontWeight={900}>
-                    Address:
-                  </Text>
-                  <Text fontSize={12} fontWeight={500}>
-                    {purchaseOrder.supplier.supplieraddress}
-                  </Text>
-                </HStack>
-                <HStack>
-                  <Text fontSize={12} fontWeight={900}>
-                    Attn:
-                  </Text>
-                  <Text fontSize={12} fontWeight={500}>
-                    {purchaseOrder.supplier.attn}
-                  </Text>
-                </HStack>
-                <HStack>
-                  <Text fontSize={12} fontWeight={900}>
-                    Email:
-                  </Text>
-                  <Text fontSize={12} fontWeight={500}>
-                    {purchaseOrder.supplier.email}
-                  </Text>
-                </HStack>
-              </Box>
-              <Box
-                p={2}
-                flex={1}
-                borderBottom="2px solid grey"
-                borderLeft="1px solid grey"
-              >
-                <Text fontSize={14} mb={2} fontWeight={900}>
-                  Ship To
-                </Text>
-                <Text fontSize={12} fontWeight={900}>
-                  {purchaseOrder.shipTo.shipname}
-                </Text>
-                <HStack alignItems="stretch">
-                  <Text fontSize={12} fontWeight={900}>
-                    Address:
-                  </Text>
-                  <Text fontSize={12} fontWeight={500}>
-                    {purchaseOrder.shipTo.address}
-                  </Text>
-                </HStack>
-                <Text >
-                  <Box />
-                </Text>
-                <HStack />
-              </Box>
-            </HStack>
-               {/* {/* <HStack
-                alignItems="stretch"
-                borderBottom="2px solid grey"
-                gap={0}
-              >
-                <Text
-                  p={1}
-                  fontWeight={700}
+            <Box m={2}>
+              <HStack gap={0} alignItems="stretch">
+                <Box
+                  p={2}
+                  flex={1}
+                  border="2px solid grey"
                   borderRight="1px solid grey"
-                  flex={1}
                 >
-                  Supplier
-                </Text>
-                <Text
-                  p={1}
-                  fontWeight={700}
+                  <Text mb={2} fontWeight={900} fontSize={14}>
+                    Supplier
+                  </Text>
+                  <Text fontSize={12} fontWeight={900}>
+                    {purchaseOrder.supplier.suppliername}
+                  </Text>
+                  <HStack alignItems="stretch">
+                    <Text fontSize={12} fontWeight={900}>
+                      Address:
+                    </Text>
+                    <Text fontSize={12} fontWeight={500}>
+                      {purchaseOrder.supplier.supplieraddress}
+                    </Text>
+                  </HStack>
+                  <HStack>
+                    <Text fontSize={12} fontWeight={900}>
+                      Attn:
+                    </Text>
+                    <Text fontSize={12} fontWeight={500}>
+                      {purchaseOrder.supplier.attn}
+                    </Text>
+                  </HStack>
+                  <HStack>
+                    <Text fontSize={12} fontWeight={900}>
+                      Email:
+                    </Text>
+                    <Text fontSize={12} fontWeight={500}>
+                      {purchaseOrder.supplier.email}
+                    </Text>
+                  </HStack>
+                </Box>
+                <Box
+                  p={2}
+                  flex={1}
+                  border="2px solid grey"
                   borderLeft="1px solid grey"
-                  flex={1}
                 >
-                  Ship To
-                </Text>
-              </HStack> 
-              {/* <HStack
-                borderBottom="2px solid grey"
-                minH={"80px"}
-                alignItems="stretch"
-                gap={0}
-              >
-                <Text
-                  p={1}
-                  fontWeight={500}
-                  borderRight="1px solid grey"
-                  flex={1}
-                >
-                 {purchaseOrder.supplier}
-                </Text>
-                <Text
-                  p={1}
-                  fontWeight={500}
-                  borderLeft="1px solid grey"
-                  flex={1}
-                >
-                   {purchaseOrder.shipTo} 
-                </Text>
-              </HStack> */}
+                  <Text fontSize={14} mb={2} fontWeight={900}>
+                    Ship To
+                  </Text>
+                  <Text fontSize={12} fontWeight={900}>
+                    {purchaseOrder.shipTo.shipname}
+                  </Text>
+                  <HStack alignItems="stretch">
+                    <Text fontSize={12} fontWeight={900}>
+                      Address:
+                    </Text>
+                    <Text fontSize={12} fontWeight={500}>
+                      {purchaseOrder.shipTo.address}
+                    </Text>
+                  </HStack>
+                  <Text>
+                    <Box />
+                  </Text>
+                  <HStack />
+                </Box>
+              </HStack>
               <HStack
-                borderBottom="2px solid grey"
+                borderLeft="2px solid grey"
+                borderRight="2px solid grey"
                 alignItems="stretch"
                 gap={0}
                 minH={"100px"}
@@ -271,7 +235,6 @@ console.log(props.purchaseOrder,"asdasdas")
                     {purchaseOrder.shippingMethod}
                   </Text>
                 </Stack>
-                
                 <Stack flex={1}>
                   <Text borderBottom={"2px solid grey"} p={1} fontWeight={700}>
                     Contact Person & Email
@@ -282,23 +245,128 @@ console.log(props.purchaseOrder,"asdasdas")
                   </Stack>
                 </Stack>
               </HStack>
-              <Box
+              <Box>
+                <TableContainer
+                  css={{
+                    "& td": {
+                      textAlign: "center",
+                      padding: "4px",
+                    },
+                    "& th": {
+                      textAlign: "center",
+                    },
+                  }}
+                >
+                  <Table variant="simple">
+                    <Thead>
+                      <Tr
+                        borderLeft="2px solid grey"
+                        borderRight="2px solid grey"
+                      >
+                        <Th fontWeight={900} fontSize={12}>
+                          Item
+                        </Th>
+                        <Th fontWeight={900} fontSize={12}>
+                          Part Number
+                        </Th>
+                        <Th fontWeight={900} fontSize={12} flex={1}>
+                          Description
+                        </Th>
+                        <Th fontWeight={900} fontSize={12}>
+                          Qty
+                        </Th>
+                        <Th fontWeight={900} fontSize={12}>
+                          Unit Price
+                        </Th>
+                        <Th fontWeight={900} fontSize={12}>
+                          Total Amount
+                        </Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {purchaseOrder.items.map((item, index) => (
+                        <Tr
+                          borderLeft="2px solid grey"
+                          borderRight="2px solid grey"
+                          key={index}
+                        >
+                          <Td fontSize={12} fontWeight={700}>
+                            {index + 1}
+                          </Td>
+                          <Td
+                            fontSize={12}
+                            whiteSpace="break-spaces"
+                            fontWeight={700}
+                          >
+                            {item.part}
+                          </Td>
+                          <Td
+                            fontSize={12}
+                            fontWeight={700}
+                            whiteSpace="break-spaces"
+                          >
+                            {item.description}
+                          </Td>
+                          <Td fontSize={12} fontWeight={700} textAlign="end">
+                            {item.quantity}
+                          </Td>
+                          <Td fontSize={12} fontWeight={700} textAlign="end">
+                            {item.unitPrice}
+                          </Td>
+                          <Td fontSize={12} fontWeight={700} textAlign="end">
+                            {(
+                              Number(item.quantity) * Number(item.unitPrice)
+                            ).toFixed(2)}
+                          </Td>
+                        </Tr>
+                      ))}
+                    </Tbody>
+                    <Tfoot>
+                      <Tr
+                        borderLeft="2px solid grey"
+                        borderRight="2px solid grey"
+                        borderBottom="2px solid grey"
+                      >
+                        <Td colSpan={5}>
+                          <Text
+                            textAlign="right"
+                            fontSize={12}
+                            fontWeight={900}
+                          >
+                            Total Amount (USD)
+                          </Text>
+                        </Td>
+                        <Td
+                          border="none !important"
+                          fontWeight={900}
+                          display="flex"
+                          justifyContent={"right"}
+                          fontSize={12}
+                        >
+                          {getTotal()}
+                        </Td>
+                      </Tr>
+                    </Tfoot>
+                  </Table>
+                </TableContainer>
+              </Box>
+              {/* <Box
                 css={{
                   "& p": {
                     textAlign: "center",
                     paddingBottom: "8px",
                   },
                 }}
-              >
-                <HStack px={1} fontWeight={700}>
+              > */}
+              {/* <HStack px={1} fontWeight={700}>
                   <Text borderRight={"2px solid grey"} flex={1}>
                     Item
                   </Text>
                   <Text borderRight={"2px solid grey"} flex={1}>
-                    Part Number 
+                    Part Number
                   </Text>
                   <Text borderRight={"2px solid grey"} flex={3}>
-                     Description
+                    Description
                   </Text>
                   <Text borderRight={"2px solid grey"} flex={1}>
                     Qty
@@ -307,8 +375,8 @@ console.log(props.purchaseOrder,"asdasdas")
                     Unit Price
                   </Text>
                   <Text flex={1}>Total Amount</Text>
-                </HStack>
-                {purchaseOrder.items.map((item, idx) => (
+                </HStack> */}
+              {/* {purchaseOrder.items.map((item, idx) => (
                   <HStack
                     alignItems="stretch"
                     borderTop="2px solid grey"
@@ -323,10 +391,10 @@ console.log(props.purchaseOrder,"asdasdas")
                       borderRight={"2px solid grey"}
                       flex={1}
                     >
-                       {item.part} 
+                      {item.part}
                     </Text>
                     <Text borderRight={"2px solid grey"} flex={3}>
-                    {item.description}
+                      {item.description}
                     </Text>
                     <Text borderRight={"2px solid grey"} flex={1}>
                       {item.quantity}
@@ -335,34 +403,35 @@ console.log(props.purchaseOrder,"asdasdas")
                       {item.unitPrice}
                     </Text>
                     <Text flex={1}>
-                      {(Number(item.unitPrice) * Number(item.quantity)).toFixed(2)}
+                      {(Number(item.unitPrice) * Number(item.quantity)).toFixed(
+                        2
+                      )}
                     </Text>
                   </HStack>
-                ))}
-                
-                  <Box
-                css={{
-                  "& p": {
-                    textAlign: "end",
-                    paddingBottom: "8px",
-                  },
-                }}
-              >
+                ))} */}
+
+              {/* <Box
+                  css={{
+                    "& p": {
+                      textAlign: "end",
+                      paddingBottom: "8px",
+                    },
+                  }}
+                >
                   <HStack
                     alignItems="stretch"
                     borderTop="2px solid grey"
                     px={1}
                     fontWeight={700}
                   >
-                  <Text flex={7.5}  borderRight={"2px solid grey"}>Total Amount (USD)</Text>
-                  <Text flex={1}  >{getTotal()} </Text>
-
+                    <Text flex={7.5} borderRight={"2px solid grey"}>
+                      Total Amount (USD)
+                    </Text>
+                    <Text flex={1}>{getTotal()} </Text>
                   </HStack>
-                  
-              </Box>
-                 
-              </Box>
-            </Box> 
+                </Box>
+              </Box> */}
+            </Box>
             <Stack mx={6} fontSize={12} mt={16}>
               <Text fontWeight={700}>Special Instructions:</Text>
               <List fontWeight={500}>

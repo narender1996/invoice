@@ -21,6 +21,11 @@ export const INITIAL_STATE = {
     trackingNumber: "",
   },
   weightAndDimension: "",
-  numberOfBoxes: "",
-  items: [{ ...INITIAL_ITEM_STATE, id: Date.now() }],
+  numberOfBoxes: "0",
+  items: [
+    {
+      ...INITIAL_ITEM_STATE,
+      id: Date.now(),
+    },
+  ],
 };
