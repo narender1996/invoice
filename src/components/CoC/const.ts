@@ -1,26 +1,32 @@
 export const INITIAL_ITEM_STATE = {
-  qty: "",
-  description: "",
-  lotNumber: "",
-  shelfLife: "",
-  origin: "",
+  qty: "12",
+  description: "qwer",
+  lotNumber: "qwer",
+  shelfLife: "qwer",
+  origin: "qwer",
 };
 
 export const INITIAL_STATE = {
   document: {
-    number: "",
-    date: "",
-    shippedFrom: "",
-    destination: "",
+    number: "qwer",
+    date: "qwer",
+    shippedFrom: "1234",
+    destination: "1234r",
   },
-  deliverTo: "",
+  deliverTo: "1234",
   customer: {
-    poNumber: "",
-    invoiceNumber: "",
-    forwarder: "",
-    trackingNumber: "",
+    poNumber: "234",
+    invoiceNumber: "2345",
+    forwarder: "2345",
+    trackingNumber: "12345",
   },
-  weightAndDimension: "",
-  numberOfBoxes: "",
-  items: [{ ...INITIAL_ITEM_STATE, id: Date.now() }],
+  weightAndDimension: "120",
+  numberOfBoxes: "10",
+  items: Array(40)
+    .fill("")
+    .map((_, index) => ({
+      ...INITIAL_ITEM_STATE,
+      id: index,
+      qty: `${index + 1}`,
+    })),
 };

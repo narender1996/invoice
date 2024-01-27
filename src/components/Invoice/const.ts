@@ -1,28 +1,30 @@
 export const InitialItemState = {
-  part: "",
-  description: "",
-  quantity: 0,
-  unitPrice: 0,
+  part: "qwert",
+  description: "qwer",
+  quantity: 2,
+  unitPrice: 2,
 };
 
 export const InitialState = {
   quotation: {
-    date: "",
-    quote: "",
-    reference: "",
-    paymentTerms: "",
+    date: "date",
+    quote: "qeqewq",
+    reference: "qweqwe",
+    paymentTerms: "qweqwewq",
   },
   billTo: {
-    billname: "",
-    billaddress:"",
-    attn: "",
-    email: "",
+    billname: "qweqweqw",
+    billaddress: "qwewqes",
+    attn: "qwdscxx",
+    email: "qwdss",
   },
   shipTo: {
-    shipname: "",
-    address:""
+    shipname: "zxcxcds",
+    address: "sdxcxcx",
   },
-  items: [{ ...InitialItemState, id: Date.now() }],
+  items: Array.from({ length: 40 })
+    .fill("")
+    .map((_, index) => ({ ...InitialItemState, id: index })),
 };
 
 export const TermsAndConditions = [
