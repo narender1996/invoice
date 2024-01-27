@@ -39,8 +39,8 @@ const InvoicePreviewModal = (props: Props) => {
   const formatDate = (inputDate: string) => {
     const dateObject = new Date(inputDate);
     const year = dateObject.getFullYear();
-    const month = String(dateObject.getMonth() + 1).padStart(2, "0");
-    const day = String(dateObject.getDate()).padStart(2, "0");
+    const month = String(dateObject.getMonth() + 1).padStart(2, '0');
+    const day = String(dateObject.getDate()).padStart(2, '0');
     return `${day}/${month}/${year}`;
   };
 
@@ -57,7 +57,7 @@ const InvoicePreviewModal = (props: Props) => {
     html2pdf(element, {
       margin: [10, 0, 10, 0],
       filename: fileName || "invoice.pdf",
-      pagebreak: { mode: ["avoid-all", "css", "legacy"] },
+      // pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
     });
   };
 
@@ -90,10 +90,10 @@ const InvoicePreviewModal = (props: Props) => {
             my={2}
             width={"768px"}
             id="invoice-pdf"
-            // border="2px solid grey"
+            border="2px solid grey"
             overflowX="hidden"
           >
-            <HStack alignItems="flex-start" border="2px solid grey">
+            <HStack alignItems="flex-start" borderBottom="2px solid grey">
               <HStack
                 alignItems="flex-start"
                 justifyContent={"space-between"}
@@ -115,6 +115,7 @@ const InvoicePreviewModal = (props: Props) => {
                   <Text>+31 (0) 85 – 1301 685</Text>
                   <Text>VAT: NL862198446B01</Text>
                   <Text>CoC: 81729618</Text>
+
                 </VStack>
               </HStack>
               <Box
@@ -158,12 +159,7 @@ const InvoicePreviewModal = (props: Props) => {
                 </VStack>
               </Box>
             </HStack>
-            <HStack
-              borderLeft="2px solid grey"
-              borderRight="2px solid grey"
-              gap={0}
-              alignItems="stretch"
-            >
+            <HStack gap={0} alignItems="stretch">
               <Box
                 p={2}
                 flex={1}
@@ -221,7 +217,7 @@ const InvoicePreviewModal = (props: Props) => {
                     {invoice.shipTo.address}
                   </Text>
                 </HStack>
-                <Text>
+                <Text >
                   <Box />
                 </Text>
                 <HStack />
@@ -229,29 +225,24 @@ const InvoicePreviewModal = (props: Props) => {
             </HStack>
             <Box>
               <TableContainer>
-                <Box borderLeft="2px solid grey" borderRight="2px solid grey">
-                  <Text
-                    fontSize={14}
-                    padding={4}
-                    textAlign="center"
-                    fontWeight={700}
-                  >
-                    The Following is in response to your Request For Quote
-                  </Text>
-                </Box>
+                <Text
+                  fontSize={14}
+                  padding={4}
+                  textAlign="center"
+                  fontWeight={700}
+                >
+                  The Following is in response to your Request For Quote
+                </Text>
                 <Table variant="simple">
                   <Thead>
-                    <Tr
-                      borderLeft="2px solid grey"
-                      borderRight="2px solid grey"
-                    >
+                    <Tr>
                       <Th fontWeight={900} fontSize={12}>
                         Item
                       </Th>
                       <Th fontWeight={900} fontSize={12}>
                         Part Number
                       </Th>
-                      <Th fontWeight={900} fontSize={12} flex={1}>
+                      <Th fontWeight={900} fontSize={12} flex={1} >
                         Description
                       </Th>
                       <Th fontWeight={900} fontSize={12}>
@@ -263,15 +254,11 @@ const InvoicePreviewModal = (props: Props) => {
                       <Th fontWeight={900} fontSize={12}>
                         Total ($)
                       </Th>
-                    </Tr>
+                    </Tr> 
                   </Thead>
                   <Tbody>
                     {invoice.items.map((item, index) => (
-                      <Tr
-                        borderLeft="2px solid grey"
-                        borderRight="2px solid grey"
-                        key={index}
-                      >
+                      <Tr key={index}>
                         <Td fontSize={12} fontWeight={700}>
                           {index + 1}
                         </Td>
@@ -282,11 +269,7 @@ const InvoicePreviewModal = (props: Props) => {
                         >
                           {item.part}
                         </Td>
-                        <Td
-                          fontSize={12}
-                          fontWeight={700}
-                          whiteSpace="break-spaces"
-                        >
+                        <Td fontSize={12} fontWeight={700} whiteSpace="break-spaces" >
                           {item.description}
                         </Td>
                         <Td fontSize={12} fontWeight={700} textAlign="end">
@@ -302,13 +285,16 @@ const InvoicePreviewModal = (props: Props) => {
                         </Td>
                       </Tr>
                     ))}
+                    {/* <Tr>
+                      <Td></Td>
+                      <Td></Td>
+                      <Td></Td>
+                      <Td></Td>
+                      <Td></Td>
+                    </Tr> */}
                   </Tbody>
                   <Tfoot>
-                    <Tr
-                      borderLeft="2px solid grey"
-                      borderRight="2px solid grey"
-                      borderBottom="2px solid grey"
-                    >
+                    <Tr>
                       <Td colSpan={5}>
                         <HStack mb={4} justifyContent="space-between">
                           <Text fontSize={12} fontWeight={900}>

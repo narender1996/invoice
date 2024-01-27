@@ -29,8 +29,8 @@ const COCPreviewModal = (props: Props) => {
   const formatDate = (inputDate: string) => {
     const dateObject = new Date(inputDate);
     const year = dateObject.getFullYear();
-    const month = String(dateObject.getMonth() + 1).padStart(2, "0");
-    const day = String(dateObject.getDate()).padStart(2, "0");
+    const month = String(dateObject.getMonth() + 1).padStart(2, '0');
+    const day = String(dateObject.getDate()).padStart(2, '0');
     return `${day}/${month}/${year}`;
   };
 
@@ -39,7 +39,7 @@ const COCPreviewModal = (props: Props) => {
     html2pdf(element, {
       margin: [10, 0, 10, 0],
       filename: fileName || "coc.pdf",
-      pagebreak: { mode: ["avoid-all", "css", "legacy"] },
+      // pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
     });
   };
 
@@ -73,6 +73,7 @@ const COCPreviewModal = (props: Props) => {
             width={"768px"}
             id="coc-pdf"
             border="2px solid grey"
+            fontSize={14}
             p={2}
           >
             <HStack alignItems="flex-start" gap={4}>
@@ -150,6 +151,7 @@ const COCPreviewModal = (props: Props) => {
             </Stack>
 
             <Stack
+              border="2px solid grey"
               mt={4}
               fontWeight={700}
               fontSize={11}
@@ -160,25 +162,12 @@ const COCPreviewModal = (props: Props) => {
                   paddingBottom: "8px",
                 },
               }}
-              borderBottom="2px solid grey"
             >
-              <HStack
-                border="2px solid grey"
-                borderBottom={0}
-                alignItems="stretch"
-              >
-                <Text
-                  borderRight={"2px solid grey"}
-                  flex={1}
-                  textAlign={"center"}
-                >
+              <HStack alignItems="stretch">
+                <Text borderRight={"2px solid grey"} flex={1} textAlign={"center"}>
                   Qty
                 </Text>
-                <Text
-                  borderRight={"2px solid grey"}
-                  flex={8}
-                  textAlign={"center"}
-                >
+                <Text borderRight={"2px solid grey"} flex={8} textAlign={"center"}>
                   Part & Description
                 </Text>
                 <Text borderRight={"2px solid grey"} flex={2}>
@@ -191,43 +180,20 @@ const COCPreviewModal = (props: Props) => {
               </HStack>
 
               {coc.items.map((item) => (
-                <HStack
-                  borderLeft="2px solid grey"
-                  borderRight="2px solid grey"
-                  alignItems="stretch"
-                  borderTop="2px solid grey"
-                >
-                  <Text
-                    borderRight={"2px solid grey"}
-                    flex={1}
-                    textAlign={"center"}
-                  >
+                <HStack alignItems="stretch" borderTop="2px solid grey">
+                  <Text borderRight={"2px solid grey"} flex={1} textAlign={"center"}>
                     {item.qty}
                   </Text>
-                  <Text
-                    borderRight={"2px solid grey"}
-                    flex={10}
-                    textAlign={"center"}
-                  >
+                  <Text borderRight={"2px solid grey"} flex={8} textAlign={"center"}>
                     {item.description}
                   </Text>
-                  <Text
-                    borderRight={"2px solid grey"}
-                    flex={2}
-                    textAlign="center"
-                  >
+                  <Text borderRight={"2px solid grey"} flex={2} textAlign="center">
                     {item.lotNumber}
                   </Text>
-                  <Text
-                    borderRight={"2px solid grey"}
-                    flex={2}
-                    textAlign="center"
-                  >
+                  <Text borderRight={"2px solid grey"} flex={2} textAlign="center">
                     {item.shelfLife}
                   </Text>
-                  <Text flex={3} textAlign="center">
-                    {item.origin}
-                  </Text>
+                  <Text flex={3} textAlign="center">{item.origin}</Text>
                 </HStack>
               ))}
             </Stack>
@@ -238,14 +204,16 @@ const COCPreviewModal = (props: Props) => {
               certificates or release notes quoted and are in the same condition
               as when received and are further issued for your inspection.
             </Text>
-            <Box style={{ display: "flex" }} mt={2} mb={2}>
-              <Image width="20%" ml="1%" src="/icon2.jpeg" />
-              <Image width="20%" ml="5%" src="/icon1.jpeg" />
-            </Box>
+            <Box style={{display:"flex"}} mt={2} mb={2}>
+               <Image  width="20%" ml="1%" src="/icon2.jpeg" />
+              <Image  width="20%" ml="5%" src="/icon1.jpeg" />
+
+               </Box>
             <Stack>
-              <Text px={4} fontSize={10} fontWeight={700}>
+              <Text px={4} fontSize={10} fontWeight={700} >
                 Signed on Behalf of Partium, Elite B.V.: Quality Control
               </Text>
+              {/* TODO: Implement Image here */}
             </Stack>
           </Box>
         </ModalBody>
