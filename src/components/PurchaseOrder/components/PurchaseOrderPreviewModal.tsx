@@ -355,7 +355,10 @@ console.log(props.purchaseOrder,"asdasdas")
                     fontWeight={700}
                   >
                   <Text flex={7.5}  borderRight={"2px solid grey"}>Total Amount (USD)</Text>
-                  <Text flex={1}  >{getTotal()} </Text>
+                  <Text flex={1}  textAlign={"center"}>
+                    
+                   <p style={{textAlign:"center"}}> {getTotal()} </p>
+                    </Text>
 
                   </HStack>
                   
