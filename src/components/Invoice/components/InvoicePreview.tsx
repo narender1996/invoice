@@ -53,12 +53,44 @@ const InvoicePreviewModal = (props: Props) => {
   };
 
   const exportPDF = () => {
-    const element = document.getElementById("invoice-pdf");
-    html2pdf(element, {
-      margin: [10, 0, 10, 0],
-      filename: fileName || "invoice.pdf",
-      pagebreak: { mode: ["avoid-all", "css", "legacy"] },
-    });
+    try{
+      const element = document.getElementById("invoice-pdf");
+      const contentHeight = element?.offsetHeight || 0
+      const pageHeight = 841.89;
+      const totalPages = Math.ceil(contentHeight / pageHeight);
+      const pdf = html2pdf();
+  
+      for (let i = 0; i < totalPages; i++) {
+        const startY = i * pageHeight;
+        html2pdf(element, {
+            margin: [10, 0, 10, 0],
+            filename: fileName || "invoice.pdf",
+            pagebreak: { mode: 'avoid-all', before: '.page-break' },
+            startY
+            // pagebreak: { mode: ["avoid-all", "css", "legacy"] },
+          });
+        // pdf.from(element).set({
+        //   margin: [10, 0, 10, 0], // Reset margins for each page
+        //   pagebreak: { mode: 'avoid-all', before: '.page-break' }, // Use a class to indicate page breaks
+        //   startY,
+        // });
+      }
+  
+      // html2pdf(element, {
+      //   margin: [10, 0, 10, 0],
+      //   filename: fileName || "invoice.pdf",
+      //   // pagebreak: { mode: ["avoid-all", "css", "legacy"] },
+      // });
+    }catch(err){
+    }
+  };
+
+  const shouldBreakBeforeRow = (row:any) => {
+    // Define a threshold for content length that triggers a page break
+    const contentThreshold = 50; // Adjust based on your needs
+    const totalContentLength = row?.description.length// Add other columns as needed
+
+    return totalContentLength > contentThreshold;
   };
 
   return (
@@ -267,6 +299,9 @@ const InvoicePreviewModal = (props: Props) => {
                   </Thead>
                   <Tbody>
                     {invoice.items.map((item, index) => (
+                      <>
+                                    {index > 0 && shouldBreakBeforeRow(item) && <tr style={{ pageBreakBefore: 'always' }}></tr>}
+
                       <Tr
                         borderLeft="2px solid grey"
                         borderRight="2px solid grey"
@@ -285,7 +320,9 @@ const InvoicePreviewModal = (props: Props) => {
                         <Td
                           fontSize={12}
                           fontWeight={700}
-                          whiteSpace="break-spaces"
+                          // whiteSpace="break-spaces"
+                          maxWidth={'200px'}
+                          whiteSpace="break-spaces" overflow="hidden" 
                         >
                           {item.description}
                         </Td>
@@ -301,6 +338,7 @@ const InvoicePreviewModal = (props: Props) => {
                           ).toFixed(2)}
                         </Td>
                       </Tr>
+                      </>
                     ))}
                   </Tbody>
                   <Tfoot>
