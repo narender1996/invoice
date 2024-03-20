@@ -53,44 +53,12 @@ const InvoicePreviewModal = (props: Props) => {
   };
 
   const exportPDF = () => {
-    try{
-      const element = document.getElementById("invoice-pdf");
-      const contentHeight = element?.offsetHeight || 0
-      const pageHeight = 841.89;
-      const totalPages = Math.ceil(contentHeight / pageHeight);
-      const pdf = html2pdf();
-  
-      for (let i = 0; i < totalPages; i++) {
-        const startY = i * pageHeight;
-        html2pdf(element, {
-            margin: [10, 0, 10, 0],
-            filename: fileName || "invoice.pdf",
-            pagebreak: { mode: 'avoid-all', before: '.page-break' },
-            startY
-            // pagebreak: { mode: ["avoid-all", "css", "legacy"] },
-          });
-        // pdf.from(element).set({
-        //   margin: [10, 0, 10, 0], // Reset margins for each page
-        //   pagebreak: { mode: 'avoid-all', before: '.page-break' }, // Use a class to indicate page breaks
-        //   startY,
-        // });
-      }
-  
-      // html2pdf(element, {
-      //   margin: [10, 0, 10, 0],
-      //   filename: fileName || "invoice.pdf",
-      //   // pagebreak: { mode: ["avoid-all", "css", "legacy"] },
-      // });
-    }catch(err){
-    }
-  };
-
-  const shouldBreakBeforeRow = (row:any) => {
-    // Define a threshold for content length that triggers a page break
-    const contentThreshold = 50; // Adjust based on your needs
-    const totalContentLength = row?.description.length// Add other columns as needed
-
-    return totalContentLength > contentThreshold;
+    const element = document.getElementById("invoice-pdf");
+    html2pdf(element, {
+      margin: [10, 0, 10, 0],
+      filename: fileName || "invoice.pdf",
+      pagebreak: { mode: ["avoid", "css", "legacy"] },
+    });
   };
 
   return (
@@ -271,6 +239,7 @@ const InvoicePreviewModal = (props: Props) => {
                     The Following is in response to your Request For Quote
                   </Text>
                 </Box>
+                
                 <Table variant="simple">
                   <Thead>
                     <Tr
@@ -299,15 +268,14 @@ const InvoicePreviewModal = (props: Props) => {
                   </Thead>
                   <Tbody>
                     {invoice.items.map((item, index) => (
-                      <>
-                                    {index > 0 && shouldBreakBeforeRow(item) && <tr style={{ pageBreakBefore: 'always' }}></tr>}
-
                       <Tr
                         borderLeft="2px solid grey"
                         borderRight="2px solid grey"
                         key={index}
+                        className={index === invoice.items.length - 1 ? "last-row" : ""}
                       >
-                        <Td fontSize={12} fontWeight={700}>
+                        <Td fontSize={12} fontWeight={700}
+                        >
                           {index + 1}
                         </Td>
                         <Td
@@ -320,27 +288,28 @@ const InvoicePreviewModal = (props: Props) => {
                         <Td
                           fontSize={12}
                           fontWeight={700}
-                          // whiteSpace="break-spaces"
-                          maxWidth={'200px'}
-                          whiteSpace="break-spaces" overflow="hidden" 
+                          whiteSpace="break-spaces"
+
                         >
                           {item.description}
                         </Td>
-                        <Td fontSize={12} fontWeight={700} textAlign="end">
+                        <Td fontSize={12} fontWeight={700} textAlign="end"
+                        >
                           {item.quantity}
                         </Td>
-                        <Td fontSize={12} fontWeight={700} textAlign="end">
+                        <Td fontSize={12} fontWeight={700} textAlign="end"
+                        >
                           {item.unitPrice.toFixed(2)}
                         </Td>
-                        <Td fontSize={12} fontWeight={700} textAlign="end">
+                        <Td fontSize={12} fontWeight={700} textAlign="end"
+                        >
                           {(
                             Number(item.quantity) * Number(item.unitPrice)
                           ).toFixed(2)}
                         </Td>
                       </Tr>
-                      </>
                     ))}
-                  </Tbody>
+                  </Tbody>  
                   <Tfoot>
                     <Tr
                       borderLeft="2px solid grey"
