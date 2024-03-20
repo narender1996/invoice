@@ -19,6 +19,7 @@
 table tr {
   /* border-bottom: 2px solid grey !important; */
   border-top: 2px solid grey !important;
+
 }
 
 table tr td {
@@ -36,3 +37,11 @@ table tr th {
 table tr th:last-child {
   border-right: none !important;
 }
+table tbody tr{
+  margin-bottom: 10px;
+}
+
+.last-row td:last-child {
+  margin-bottom: 10px; /* Adjust margin value as needed */
+}
+
